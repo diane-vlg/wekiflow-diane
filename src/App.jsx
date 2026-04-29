@@ -86,39 +86,37 @@ const HR_TREE = {
     {
       id: 'f1', label: '채용 및 온보딩', icon: Users, open: true,
       pages: [
-        { id: 'p-onboard',  title: '신입사원 온보딩 체크리스트', status: 'active', source: 'user',  updated: '1주일 전' },
-        { id: 'p-recruit',  title: '채용 프로세스 가이드',       status: 'active', source: 'user',  updated: '2주 전' },
-        { id: 'p-probation',title: '수습기간 평가 기준',         status: 'draft',  source: 'user',  updated: '3주 전' },
+        { id: 'p-onboard',  title: '신입사원 온보딩 체크리스트', status: 'active', source: 'user',  updated: '1주일 전', content: "# 신입사원 온보딩 체크리스트\n\n신규 입사자의 원활한 적응을 돕기 위해 부서 및 HR에서 진행해야 할 절차를 안내합니다.\n\n## 1. 입사 전 준비 (HR 팀)\n- **근로계약서 및 서약서 발송:** 전자서명 시스템을 통해 입사 전 발송 및 서명 완료\n- **웰컴 키트 준비:** 벨루가 굿즈(티셔츠, 텀블러, 스티커 팩) 및 사원증 제작 대기\n- **기기 및 계정 세팅:** 업무용 노트북(Mac/Windows 선택), Google Workspace, Slack, Jira 등 주요 툴 계정 생성\n\n## 2. 입사 1일차 (온보딩 위크 시작)\n- **오전 (10:00 - 12:00):** HR 오리엔테이션 (회사 소개, 복리후생 안내, 취업규칙 안내) 및 오피스 투어\n- **점심 (12:00 - 13:30):** 팀 환영 점심 식사 (회사 지원)\n- **오후 (13:30 - 18:00):** 업무 환경 셋팅 및 IT 보안 교육 (보안팀 주관)\n\n## 3. 입사 1주차\n- 직무 오리엔테이션 및 OJT 계획 수립 (팀장 주관)\n- 버디(Buddy) 지정 및 주 1회 티타임 진행 (첫 1개월간)\n- 전사 위키 및 슬랙 채널 참여 가이드 숙지\n\n## 4. 입사 1개월차\n- 1개월 차 HR 리텐션 인터뷰 (온보딩 피드백 및 애로사항 청취)\n- 목표(KPI/OKR) 초기 셋업 및 리더와의 1:1 면담\n\n> 신입사원의 긍정적인 첫인상은 장기 근속의 핵심입니다. 각 단계별 체크리스트가 누락되지 않도록 담당자는 유의해 주시기 바랍니다." },
+        { id: 'p-recruit',  title: '채용 프로세스 가이드',       status: 'active', source: 'user',  updated: '2주 전', content: "# 채용 프로세스 가이드\n\n우수한 인재를 영입하기 위한 벨루가의 표준 채용 프로세스입니다.\n\n## 1. 채용 포지션 오픈 (TO 승인)\n각 부서장은 충원 또는 신규 채용이 필요할 경우, HR팀에 채용 기안을 제출합니다. 경영진의 TO 승인이 완료되면 채용 파트에서 JD(Job Description)를 검토 및 보완하여 채용 플랫폼(원티드, 리멤버 등)에 공고를 게재합니다.\n\n## 2. 서류 전형\n- 지원서 접수 후 3 영업일 이내에 평가를 완료하는 것을 원칙으로 합니다.\n- 실무 부서의 서류 검토자(보통 팀장 및 시니어)가 역량 및 문화적 적합성을 1차적으로 평가합니다.\n\n## 3. 1차 실무 면접\n- **참석자:** 직무 연관성이 높은 실무진 (2~3명)\n- **평가 요소:** 하드 스킬, 문제 해결 능력, 과거 프로젝트 경험\n- **방식:** 필요시 코딩 테스트, 사전 과제(과제비 지급)를 병행할 수 있습니다.\n\n## 4. 2차 컬쳐핏(임원) 면접\n- **참석자:** C-Level 또는 HR 리더, 부서 리더\n- **평가 요소:** 회사의 핵심 가치(Core Value) 부합도, 커뮤니케이션 스타일, 성장 잠재력\n\n## 5. 처우 협의 및 오퍼\n합격자에 한해 레퍼런스 체크(경력직)를 진행한 후, HR팀에서 개별적으로 처우 협의를 진행합니다. 오퍼 레터 수락 시 입사일을 확정합니다." },
+        { id: 'p-probation',title: '수습기간 평가 기준',         status: 'draft',  source: 'user',  updated: '3주 전', content: "# 수습기간 평가 기준\n\n신규 입사자는 입사일로부터 **2개월**의 수습기간(Probation Period)을 가집니다. 수습기간은 상호 핏을 확인하는 중요한 시기입니다.\n\n## 1. 평가 목적\n- 직무 수행 능력 및 회사 적합성 검증\n- 신규 입사자의 빠른 적응 지원 및 피드백 제공\n\n## 2. 평가 일정\n- **중간 점검 (1개월 차):** 팀장과 1:1 면담을 통해 적응도 파악 및 긍정적/개선 피드백 제공\n- **최종 평가 (수습 종료 2주 전):** HR팀과 팀장이 협의하여 본 평가 진행\n\n## 3. 평가 항목 및 비중\n1. **직무 역량 (50%):** 부여된 업무의 완성도, 업무 속도, 문제 해결 능력, 학습 태도\n2. **조직 적합성 (30%):** 코어 밸류 실천, 팀원과의 협업 마인드, 피드백 수용성\n3. **근태 및 기본기 (20%):** 지각/결근 여부, 사내 규정 준수, 업무 에티켓\n\n## 4. 평가 결과 및 조치\n- **Pass:** 정규직으로 전환되며, 수습 해제 안내 메일이 발송됩니다.\n- **Fail:** 평가 기준 미달 시, 취업규칙 제14조에 의거하여 본 채용이 거절될 수 있습니다. 단, 이 경우 구체적인 사유와 피드백이 사전에 제공되어야 합니다.\n\n세부 기준 및 평가표 양식은 본 위키의 '평가 양식 모음'을 참조하시기 바랍니다." },
       ],
     },
     {
       id: 'f2', label: '근태 및 휴가', icon: Clock, open: true,
       pages: [
-        { id: 'p-leave',    title: '연차 사용 가이드',           status: 'active', source: 'ai',    updated: '방금 전', isNew: true },
-        { id: 'p-condol',   title: '경조사 휴가 정책',           status: 'active', source: 'user',  updated: '1달 전' },
-        { id: 'p-remote',   title: '재택근무 가이드라인',         status: 'active', source: 'user',  updated: '2달 전' },
+        { id: 'p-leave',    title: '연차 사용 가이드',           status: 'active', source: 'ai',    updated: '방금 전', isNew: true, content: "# 연차 사용 가이드\n\n## 신규 입사자 연차\n입사 1년 미만 직원은 **매월 1일씩** 연차가 발생하며, 발생 즉시 사용할 수 있어요.\n1년 이상 근속 시 연 15일이 일괄 부여돼요.\n\n## 연차 신청 방법\n1. Workflow 시스템에 접속해요.\n2. \"휴가 신청\" 메뉴에서 날짜를 선택해요.\n3. 팀장 승인 후 자동으로 일정에 반영돼요.\n\n## 1. 연차 촉진 제도\n- 1차 촉진: 매년 7월 (미사용 연차 일수 안내 및 사용 계획서 제출 요청)\n- 2차 촉진: 매년 10월 (사용 계획서 미제출 시, 회사에서 임의 지정하여 통보)\n\n## 2. 반차 및 반반차\n- 반차: 4시간 휴가 (오전/오후 선택 가능)\n- 반반차: 2시간 휴가 (지각 대용 불가, 개인 사정으로 인한 조기 퇴근 등에 활용)\n\n연차는 직원의 정당한 권리입니다! 팀 내 업무 조율 후 자유롭게 사용하시기 바랍니다." },
+        { id: 'p-condol',   title: '경조사 휴가 정책',           status: 'active', source: 'user',  updated: '1달 전', content: "# 경조사 휴가 정책\n\n직원 본인 및 직계 가족의 경조사 발생 시, 회사는 유급 휴가 및 경조금을 지원합니다.\n\n## 1. 경조사 휴가 부여 기준\n- **본인 결혼:** 휴가 5일, 경조금 100만원\n- **자녀 출산:** \n  - 배우자 출산 휴가 10일 (분할 사용 가능)\n  - 출산 축하금 50만원 및 과일 바구니\n- **본인 및 배우자 부모상:** 휴가 5일, 경조금 100만원, 조화 지급\n- **조부모/외조부모상:** 휴가 3일, 경조금 30만원\n- **형제자매상:** 휴가 3일, 경조금 50만원\n\n## 2. 신청 프로세스\n- 사유 발생 전후 1주일 내 Workflow 시스템을 통해 신청서 작성\n- 증빙 서류(청첩장, 가족관계증명서, 부고장 등) 스캔본 첨부 필수\n\n## 3. 유의사항\n- 경조 휴가는 주휴일(토/일) 및 공휴일을 제외하고 평일 기준으로 산정합니다.\n- 부득이한 사정으로 사전 신청이 불가한 경우, 사후 신청이 가능하나 즉각적인 구두 보고를 원칙으로 합니다." },
+        { id: 'p-remote',   title: '재택근무 가이드라인',         status: 'active', source: 'user',  updated: '2달 전', content: "# 재택근무 가이드라인\n\n효율적인 업무 수행과 직원 만족도를 높이기 위해 조건부 재택근무 제도를 운영합니다.\n\n## 1. 재택근무 일수 및 기준\n- **허용 일수:** 주 최대 2일 (월, 금 연속 사용 지양)\n- **신청 기한:** 사용 전일 18:00까지 Workflow 신청 및 팀장 승인\n- 수습기간(입사 후 2개월) 중인 직원은 재택근무를 제한합니다. (팀장 재량 하 예외 가능)\n\n## 2. 코어타임 운영\n- **10:00 - 16:00**는 필수 근무 시간(Core Time)입니다.\n- 코어타임 중에는 즉각적인 연락(Slack 응답 15분 이내) 및 화상 회의 참석이 가능해야 합니다.\n\n## 3. 재택근무 시 준수사항\n- 업무에 집중할 수 있는 독립된 공간에서 근무\n- 공공장소(카페 등) 근무 시 화면 보안 필름 사용 및 개방형 와이파이(Public WiFi) 사용 주의\n- 불가피한 자리 비움 시 Slack 상태 메시지 업데이트\n\n재택근무는 자율과 책임이 따르는 제도입니다. 업무 성과 저하 시 부서장 권한으로 제재될 수 있습니다." },
       ],
     },
     {
       id: 'f3', label: '급여 및 복지', icon: DollarSign, open: false,
       pages: [
-        { id: 'p-salary',   title: '급여 지급 일정',             status: 'active', source: 'user',  updated: '3달 전' },
-        { id: 'p-welfare',  title: '복리후생 안내',              status: 'active', source: 'user',  updated: '1주일 전' },
-        { id: 'p-retire',   title: '퇴직금 규정',                status: 'active', source: 'user',  updated: '2달 전' },
+        { id: 'p-salary',   title: '급여 지급 일정',             status: 'active', source: 'user',  updated: '3달 전', content: "# 급여 지급 일정\n\n급여 및 상여금 지급에 관한 기본 규정입니다.\n\n## 1. 정기 급여 지급일\n- **매월 25일**에 지급됩니다.\n- 지급일이 주말 또는 공휴일인 경우, 직전 영업일에 선지급됩니다.\n- 급여 산정 기간: 전월 1일 ~ 전월 말일\n\n## 2. 연장/야간/휴일 근로 수당\n- 사전 승인된 연장 근무에 대해서만 수당이 지급됩니다.\n- 산정 기준: 통상임금의 1.5배 (밤 10시 이후 야간 근로 시 추가 0.5배 가산)\n- 당월 발생한 연장 수당은 익월 급여에 합산되어 지급됩니다.\n\n## 3. 인센티브 및 상여\n- 경영 성과에 따라 연 1회(보통 1월 말) 성과급(PI/PS)이 차등 지급될 수 있습니다.\n- 성과급은 연간 인사평가 결과를 바탕으로 산정됩니다.\n\n급여 명세서는 매월 지급일 하루 전, 등록된 개인 이메일(암호화된 PDF)로 자동 발송됩니다." },
+        { id: 'p-welfare',  title: '복리후생 안내',              status: 'active', source: 'user',  updated: '1주일 전', content: "# 복리후생 안내\n\n글로벌벨루가는 직원의 삶의 질 향상과 건강을 위해 다양한 복지 제도를 운영합니다.\n\n## 1. 건강 및 의료 지원\n- **종합건강검진:** 매년 1회, 제휴 병원(강북삼성, 하나로의료재단 등) 무료 검진 (본인 외 가족 1인 추가 시 할인가 적용)\n- **사내 의료비 지원 (신설):** 직원 본인 의료비의 50%, 연 100만원 한도로 지원 (정규직 1년 이상)\n- **심리 상담:** 연 5회 전문가 1:1 심리 상담(EAP) 전액 지원\n\n## 2. 식대 및 자기계발\n- **점심 식대:** 매월 20만원 한도의 식권대장 포인트 지급\n- **자기계발비:** 도서 구매, 직무 관련 인강 수강 등 연 120만원 한도 실비 지원\n- **어학 지원:** 전화영어, 사내 원어민 클래스 무료 제공\n\n## 3. 기타 복지\n- **기념일 선물:** 생일 및 입사 주년기념일(1/3/5년) 리워드 지급\n- **리프레시 휴가:** 3년 만근 시 유급 휴가 5일 + 휴가비 100만원 지급\n- **사내 카페테리아:** 무제한 커피, 스낵 및 음료 자판기 무료 운영" },
+        { id: 'p-retire',   title: '퇴직금 규정',                status: 'active', source: 'user',  updated: '2달 전', content: "# 퇴직금 규정\n\n직원이 퇴사할 경우 지급되는 퇴직금의 산정 및 지급 절차입니다.\n\n## 1. 지급 대상\n- 1주 소정근로시간이 15시간 이상이며, **계속근로기간이 1년 이상**인 근로자\n\n## 2. 퇴직연금 제도\n당사는 확정기여형(DC) 퇴직연금 제도를 운영합니다.\n- 회사는 매년 근로자 연간 임금총액의 1/12 이상을 근로자 명의의 퇴직연금 계좌로 납입합니다.\n- 근로자가 직접 금융상품을 선택하여 운용할 수 있으며, 운용 수익 및 손실은 근로자에게 귀속됩니다.\n- 가입 금융기관: 삼성증권, 미래에셋증권 중 택 1\n\n## 3. 퇴직 프로세스\n1. 사직서 제출 (최소 희망 퇴사일 30일 전)\n2. 소속 부서장 및 HR팀 면담\n3. 업무 인수인계 및 사내 자산(노트북, 사원증 등) 반납\n4. 퇴직금 수령을 위한 IRP(개인형 퇴직연금) 계좌 사본 제출\n\n## 4. 지급 기한\n- 퇴사일로부터 14일 이내에 지정된 IRP 계좌로 입금 완료됩니다." },
       ],
     },
     {
       id: 'f4', label: '조직 및 규정', icon: Shield, open: false,
       pages: [
-        { id: 'p-rules',    title: '취업규칙',                   status: 'active', source: 'user',  updated: '2주 전' },
-        { id: 'p-security', title: '보안 정책',                  status: 'active', source: 'user',  updated: '1달 전' },
-        { id: 'p-conduct',  title: '행동강령',                   status: 'active', source: 'user',  updated: '2달 전' },
+        { id: 'p-rules',    title: '취업규칙',                   status: 'active', source: 'user',  updated: '2주 전', content: "# 취업규칙\n\n당사의 취업규칙은 모든 임직원이 준수해야 할 사내 규범의 최상위 문서입니다.\n\n## 제1장 총칙\n**제1조 (목적)** 이 규칙은 근로자의 근로조건, 복무 규율 및 기타 필요한 사항을 정함으로써 회사의 발전과 근로자의 기본적 생활 보장을 목적으로 합니다.\n\n**제2조 (적용 범위)** 회사에 근무하는 모든 근로자에게 적용됩니다. 단, 별도의 계약이 있는 경우 그에 따릅니다.\n\n## 제2장 복무 규율\n**제11조 (신의성실의 의무)** 근로자는 회사의 규정을 준수하고 맡은 바 직무를 성실히 수행해야 정하며, 회사의 명예를 훼손하는 행위를 하여서는 안 됩니다.\n\n**제12조 (기밀 유지)** 근로자는 재직 중은 물론 퇴직 후에도 직무상 알게 된 회사의 기밀을 외부에 누설해서는 안 됩니다. 위반 시 민/형사상 책임을 질 수 있습니다.\n\n**제22조 (재택근무)** 재택근무는 팀장 승인 후 주 2회까지 허용합니다. 재택근무일에도 코어타임(10:00–16:00)은 온라인 접속을 유지해야 합니다. 세부 사항은 재택근무 가이드라인을 따릅니다.\n\n*전체 조항은 법무팀 또는 HR팀을 통해 열람하실 수 있습니다.*" },
+        { id: 'p-security', title: '보안 정책',                  status: 'active', source: 'user',  updated: '1달 전', content: "# 보안 정책\n\n안전한 IT 환경과 정보 자산 보호를 위한 전사 보안 정책입니다.\n\n## 1. 비밀번호 관리\n- **복잡도:** 영문 대/소문자, 숫자, 특수문자를 포함하여 12자리 이상 설정\n- **변경 주기:** 최소 3개월마다 1회 필수 변경\n- **공유 금지:** 어떠한 경우에도 개인 계정 비밀번호를 타인(IT팀 포함)과 공유해서는 안 됩니다.\n\n## 2. 기기 보안\n- 자리 이석 시 반드시 **화면 잠금** (Mac: ⌘ + ctrl + Q / Win: Win + L)\n- 회사가 승인하지 않은 외부 저장 매체(USB 등) 사용 엄격히 금지\n- 업무용 기기에 불법 소프트웨어 설치 금지 (사내망 모니터링 중)\n\n## 3. 데이터 반출 규정\n- 업무 관련 문서, 소스코드, 고객 개인정보 등 모든 사내 데이터는 인가된 채널(사내 이메일, 클라우드 드라이브)로만 전송 가능합니다.\n- 개인 메일, 메신저(카카오톡 등)를 통한 사내 데이터 반출은 보안 위반으로 간주되어 징계 사유가 됩니다.\n\n정보 보안은 선택이 아닌 필수입니다. 의심스러운 이메일(피싱) 수신 시 즉시 보안팀에 신고 바랍니다." },
+        { id: 'p-conduct',  title: '행동강령',                   status: 'active', source: 'user',  updated: '2달 전', content: "# 행동강령\n\n글로벌벨루가의 임직원으로서 서로를 존중하고 윤리적인 업무 환경을 조성하기 위한 행동강령(Code of Conduct)입니다.\n\n## 1. 상호 존중과 수평적 커뮤니케이션\n- 직급에 관계없이 상호 존댓말 사용을 원칙으로 합니다. (예: \"다영님, 이 내용 확인 부탁드립니다.\")\n- 인종, 성별, 나이, 종교, 장애 등을 이유로 한 어떠한 차별도 용납하지 않습니다.\n\n## 2. 직장 내 괴롭힘 및 성희롱 무관용 원칙 (Zero Tolerance)\n- 육체적, 언어적, 시각적 성희롱 행위를 엄격히 금지합니다.\n- 지위를 이용해 업무상 적정 범위를 넘어 고통을 주거나 근무 환경을 악화시키는 '직장 내 괴롭힘' 발생 시, 신고 센터(익명)를 통해 즉각 조사 및 중징계(해고 포함) 처리합니다.\n\n## 3. 이해상충 방지\n- 직무와 관련하여 협력업체나 이해관계자로부터 일체의 금품, 접대, 향응을 요구하거나 제공받을 수 없습니다. (명절 선물 포함)\n- 본인 또는 가족이 회사의 이익과 상충되는 비즈니스를 운영하거나 투자하는 행위를 금지합니다.\n\n우리는 투명하고 건강한 조직 문화를 함께 만들어갑니다." },
       ],
     },
   ],
-};
-
-const ALL_PAGES = HR_TREE.folders.flatMap(f => f.pages);
+};\n\nconst ALL_PAGES = HR_TREE.folders.flatMap(f => f.pages);
 
 /* ── Triple graph data ─────────────────────────────────────────────────── */
 // Nodes: id, label, type (doc|concept|policy|system|person), x, y
@@ -413,7 +411,7 @@ function Divider({ my = 16 }) {
 /* =========================================================================
    SIDEBAR
    ========================================================================= */
-function Sidebar({ view, setView, openPage, currentPageId, openFolder, currentFolderId }) {
+function Sidebar({ view, setView, openPage, currentPageId, openFolder, currentFolderId, openNewPage }) {
   const [folderState, setFolderState] = useState(() =>
     Object.fromEntries(HR_TREE.folders.map(f => [f.id, f.open]))
   );
@@ -469,7 +467,7 @@ function Sidebar({ view, setView, openPage, currentPageId, openFolder, currentFo
       <div className="sy" style={{ flex: 1, padding: '0 8px', overflow: 'auto' }}>
         <div style={{ padding: '2px 8px 6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <NLabel>문서 목록</NLabel>
-          <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 2, borderRadius: 3 }} title="새 문서">
+          <button onClick={() => openNewPage()} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 2, borderRadius: 3 }} title="새 문서" onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'none'}>
             <Plus size={11} color={N.inkMute} />
           </button>
         </div>
@@ -527,7 +525,7 @@ function Sidebar({ view, setView, openPage, currentPageId, openFolder, currentFo
 function SidebarItem({ children, active, onClick, muted }) {
   return (
     <button onClick={onClick} style={{
-      display: 'flex', alignItems: 'center', gap: 7, width: '100%',
+      display: 'flex', alignItems: 'center', justifyContent: 'flex-start', textAlign: 'left', gap: 7, width: '100%',
       padding: '6px 10px', borderRadius: 4, border: 'none', cursor: 'pointer',
       background: active ? 'rgba(0,0,0,0.07)' : 'none',
       color: muted ? N.inkSub : N.ink,
@@ -568,7 +566,7 @@ function TopBar({ crumbs, openPage }) {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <div style={{ position: 'relative' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 4, border: isFocused ? `1px solid ${N.blue}` : bd, background: N.bg, transition: 'border 0.2s' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '0 12px', borderRadius: 4, border: isFocused ? `1px solid ${N.blue}` : bd, background: N.bg, transition: 'border 0.2s', height: 28, boxSizing: 'border-box' }}>
             <Search size={12} color={isFocused ? N.blue : N.inkMute} />
             <input 
               value={query} 
@@ -857,6 +855,7 @@ function WikiView({ openPage, openNewPage }) {
    ========================================================================= */
 function PageEditorView({ page, panel, setPanel }) {
   const [mode, setMode] = useState('block');
+  const [panelWidth, setPanelWidth] = useState(480);
   return (
     <div className="nf" style={{ flex: 1, display: 'flex', flexDirection: 'column', background: N.bg, overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 24px', borderBottom: bd, flexShrink: 0, flexWrap: 'wrap' }}>
@@ -876,12 +875,38 @@ function PageEditorView({ page, panel, setPanel }) {
         <NBtn variant="ghost" size="sm"><RotateCcw size={11} />다시 정리</NBtn>
         <NBtn variant="primary" size="sm"><Send size={11} />챗봇에 반영</NBtn>
       </div>
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: panel ? '1fr 480px' : '1fr', overflow: 'hidden' }}>
-        <div className="sy" style={{ overflowY: 'auto' }}>
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+        <div className="sy" style={{ flex: 1, overflowY: 'auto' }}>
           {mode === 'block' ? <BlockContent page={page} /> : <SourceContent page={page} />}
         </div>
-        {panel === 'graph' && <TripleGraphPanel onClose={() => setPanel(null)} pageId={page.id} />}
-        {panel === 'hist'  && <HistPanel onClose={() => setPanel(null)} />}
+        {panel && (
+          <>
+            <div 
+              style={{ width: 4, cursor: 'col-resize', background: 'transparent', flexShrink: 0, zIndex: 10 }}
+              onMouseEnter={e => e.currentTarget.style.background = N.border}
+              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+              onMouseDown={e => {
+                e.preventDefault();
+                const startX = e.clientX;
+                const startWidth = panelWidth;
+                const onMouseMove = moveEvent => {
+                  const newWidth = startWidth - (moveEvent.clientX - startX);
+                  if (newWidth > 300 && newWidth < 800) setPanelWidth(newWidth);
+                };
+                const onMouseUp = () => {
+                  document.removeEventListener('mousemove', onMouseMove);
+                  document.removeEventListener('mouseup', onMouseUp);
+                };
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+              }}
+            />
+            <div style={{ width: panelWidth, flexShrink: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', borderLeft: bd }}>
+              {panel === 'graph' && <TripleGraphPanel onClose={() => setPanel(null)} pageId={page.id} />}
+              {panel === 'hist'  && <HistPanel onClose={() => setPanel(null)} />}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -944,7 +969,7 @@ function TripleGraphPanel({ onClose, pageId }) {
   };
 
   return (
-    <aside style={{ borderLeft: bd, background: N.bg, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <aside style={{ flex: 1, background: N.bg, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px', borderBottom: bd, flexShrink: 0 }}>
         <div>
@@ -1162,7 +1187,7 @@ function HistPanel({ onClose }) {
   const rev = HISTORY.find(h => h.id === sel);
 
   return (
-    <aside style={{ borderLeft: bd, background: N.bg, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <aside style={{ flex: 1, background: N.bg, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 18px', borderBottom: bd, flexShrink: 0 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: N.ink, letterSpacing: '-.2px' }}>변경 기록</div>
         <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, borderRadius: 4 }} onMouseEnter={e => e.currentTarget.style.background = N.bgWarm} onMouseLeave={e => e.currentTarget.style.background = 'none'}>
@@ -1424,12 +1449,13 @@ function NewPageModal({ open, onClose }) {
     <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.35)' }} onClick={onClose}>
       <div className="nf aSI" style={{ width: 480, borderRadius: 8, background: N.bg, border: bd, padding: 28, boxShadow: N.deep }} onClick={e => e.stopPropagation()}>
         <h3 style={{ fontSize: 22, fontWeight: 700, color: N.ink, letterSpacing: '-.3px', marginBottom: 5 }}>새 문서 만들기</h3>
-        <p style={{ fontSize: 13, color: N.inkMute, marginBottom: 22 }}>선택한 폴더 안에 새 문서가 만들어져요.</p>
+        <p style={{ fontSize: 13, color: N.inkMute, marginBottom: 22 }}>선택한 위치에 새 문서가 만들어져요.</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <FField label="제목"><input autoFocus value={title} onChange={e => setTitle(e.target.value)} placeholder="문서 제목을 입력해요" style={iStyle} /></FField>
-          <FField label="폴더">
+          <FField label="제목"><input autoFocus value={title} onChange={e => setTitle(e.target.value)} placeholder="문서 또는 폴더 제목을 입력해요" style={iStyle} /></FField>
+          <FField label="위치">
             <select value={folder} onChange={e => setFolder(e.target.value)} style={{ ...iStyle, appearance: 'none', cursor: 'pointer' }}>
-              {HR_TREE.folders.map(f => <option key={f.id} value={f.id}>{f.label}</option>)}
+              <option value="root">최상위 문서 (새 폴더 만들기)</option>
+              {HR_TREE.folders.map(f => <option key={f.id} value={f.id}>{f.label} 하위 문서</option>)}
             </select>
           </FField>
         </div>
@@ -1480,7 +1506,7 @@ export default function Wekiflow() {
   return (
     <div className="nf" style={{ display: 'flex', height: '100vh', width: '100%', background: N.bg, color: N.ink }}>
       <style>{FONTS}</style>
-      <Sidebar view={view} setView={(v) => { setView(v); setPanel(null); }} openPage={openPage} currentPageId={currentPage?.id} openFolder={openFolder} currentFolderId={currentFolder?.id} />
+      <Sidebar view={view} setView={(v) => { setView(v); setPanel(null); }} openPage={openPage} currentPageId={currentPage?.id} openFolder={openFolder} currentFolderId={currentFolder?.id} openNewPage={() => setNewPageOpen(true)} />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <TopBar crumbs={crumbs[view] || ['글로벌벨루가 HR Wiki']} openPage={openPage} />
         {view === 'home'   && <HomeView gotoLearn={() => setView('learn')} openPage={openPage} />}
