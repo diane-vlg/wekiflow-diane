@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import {
   Home, GraduationCap, BookOpen, PlusCircle, ClipboardList, Settings2,
   ChevronRight, ChevronDown, Folder, FolderOpen, FileText, Plus, File,
@@ -37,6 +39,15 @@ const FONTS = `
   .sy::-webkit-scrollbar { width:5px; height:5px; }
   .sy::-webkit-scrollbar-thumb { background:rgba(0,0,0,.12); border-radius:3px; }
   .sy::-webkit-scrollbar-track { background:transparent; }
+
+  .md-content h1, .md-content h2 { margin-top: 24px; margin-bottom: 12px; font-size: 22px; font-weight: 700; letter-spacing: -.3px; }
+  .md-content h3 { margin-top: 20px; margin-bottom: 10px; font-size: 18px; font-weight: 600; }
+  .md-content p { margin-bottom: 16px; }
+  .md-content ul, .md-content ol { padding-left: 24px; margin-bottom: 16px; line-height: 1.7; }
+  .md-content li { margin-bottom: 4px; }
+  .md-content blockquote { padding: 12px 16px; background: #f6f5f4; border-left: 4px solid rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 16px; }
+  .md-content strong { font-weight: 700; }
+  .md-content em { font-style: italic; }
 `;
 
 /* =========================================================================
@@ -70,7 +81,7 @@ const bd = `1px solid ${N.border}`;
    HR WIKI DATA
    ========================================================================= */
 const HR_TREE = {
-  workspace: '벨루가 HR Wiki',
+  workspace: '글로벌벨루가 HR Wiki',
   folders: [
     {
       id: 'f1', label: '채용 및 온보딩', icon: Users, open: true,
@@ -402,17 +413,17 @@ function Divider({ my = 16 }) {
 /* =========================================================================
    SIDEBAR
    ========================================================================= */
-function Sidebar({ view, setView, openPage, currentPageId }) {
+function Sidebar({ view, setView, openPage, currentPageId, openFolder, currentFolderId }) {
   const [folderState, setFolderState] = useState(() =>
     Object.fromEntries(HR_TREE.folders.map(f => [f.id, f.open]))
   );
   const toggleFolder = (id) => setFolderState(s => ({ ...s, [id]: !s[id] }));
 
   const menu = [
-    { key: 'home',  Icon: Home,          label: '홈' },
-    { key: 'learn', Icon: GraduationCap, label: '새로 배운 것', badge: 1 },
-    { key: 'wiki',  Icon: BookOpen,       label: '위키' },
-    { key: 'teach', Icon: PlusCircle,     label: '직접 알려주기' },
+    { key: 'home',  Icon: Home,          label: '대시보드' },
+    { key: 'learn', Icon: GraduationCap, label: '신규 지식', badge: 1 },
+    { key: 'wiki',  Icon: BookOpen,       label: '전사 위키' },
+    { key: 'teach', Icon: PlusCircle,     label: '지식 등록하기' },
     { key: 'log',   Icon: ClipogramList,  label: '학습 기록' },
   ];
 
@@ -428,7 +439,7 @@ function Sidebar({ view, setView, openPage, currentPageId }) {
           <div style={{ width: 18, height: 18, borderRadius: 3, background: N.ink, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontSize: 9, fontWeight: 700, color: '#fff' }}>V</span>
           </div>
-          <span style={{ fontSize: 13, fontWeight: 600, color: N.ink }}>벨루가 HR Wiki</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: N.ink }}>글로벌벨루가 HR Wiki</span>
           <ChevronDown size={11} color={N.inkMute} style={{ marginLeft: 'auto' }} />
         </div>
       </div>
@@ -467,10 +478,10 @@ function Sidebar({ view, setView, openPage, currentPageId }) {
           return (
             <div key={folder.id}>
               <button
-                onClick={() => toggleFolder(folder.id)}
-                style={{ display: 'flex', alignItems: 'center', gap: 5, width: '100%', padding: '4px 8px', borderRadius: 4, background: 'none', border: 'none', cursor: 'pointer', color: N.ink, fontSize: 12.5, fontWeight: 500 }}
-                onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                onClick={() => { toggleFolder(folder.id); openFolder(folder.id); }}
+                style={{ display: 'flex', alignItems: 'center', gap: 5, width: '100%', padding: '4px 8px', borderRadius: 4, background: currentFolderId === folder.id && view === 'folder' ? 'rgba(0,0,0,0.06)' : 'none', border: 'none', cursor: 'pointer', color: N.ink, fontSize: 12.5, fontWeight: currentFolderId === folder.id && view === 'folder' ? 600 : 500 }}
+                onMouseEnter={e => { if (!(currentFolderId === folder.id && view === 'folder')) e.currentTarget.style.background = 'rgba(0,0,0,0.05)' }}
+                onMouseLeave={e => { if (!(currentFolderId === folder.id && view === 'folder')) e.currentTarget.style.background = 'none' }}
               >
                 {folderState[folder.id] ? <ChevronDown size={10} color={N.inkMute} /> : <ChevronRight size={10} color={N.inkMute} />}
                 <FolderIcon size={12} color={N.inkSub} strokeWidth={1.6} />
@@ -536,9 +547,17 @@ const ClipogramList = ClipboardList;
 /* =========================================================================
    TOP BAR
    ========================================================================= */
-function TopBar({ crumbs }) {
+function TopBar({ crumbs, openPage }) {
+  const [query, setQuery] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+
+  const searchResults = query.trim().length > 0 ? ALL_PAGES.filter(p => 
+    p.title.toLowerCase().includes(query.toLowerCase()) || 
+    (p.content && p.content.toLowerCase().includes(query.toLowerCase()))
+  ) : [];
+
   return (
-    <div className="nf" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 28px', borderBottom: bd, background: N.bg, flexShrink: 0 }}>
+    <div className="nf" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 28px', borderBottom: bd, background: N.bg, flexShrink: 0, zIndex: 10 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
         {crumbs.map((c, i) => (
           <React.Fragment key={i}>
@@ -548,10 +567,40 @@ function TopBar({ crumbs }) {
         ))}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 4, border: bd, background: N.bg }}>
-          <Search size={12} color={N.inkMute} />
-          <span style={{ fontSize: 12.5, color: N.inkMute }}>HR Wiki 검색…</span>
-          <span className="nm" style={{ fontSize: 10, color: N.inkMute, background: N.bgWarm, border: bd, borderRadius: 3, padding: '1px 5px' }}>⌘K</span>
+        <div style={{ position: 'relative' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 4, border: isFocused ? \`1px solid \${N.blue}\` : bd, background: N.bg, transition: 'border 0.2s' }}>
+            <Search size={12} color={isFocused ? N.blue : N.inkMute} />
+            <input 
+              value={query} 
+              onChange={e => setQuery(e.target.value)} 
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+              placeholder="HR Wiki 검색…"
+              style={{ border: 'none', background: 'transparent', outline: 'none', fontSize: 12.5, color: N.ink, width: 140 }}
+            />
+            {!isFocused && !query && <span className="nm" style={{ fontSize: 10, color: N.inkMute, background: N.bgWarm, border: bd, borderRadius: 3, padding: '1px 5px' }}>⌘K</span>}
+          </div>
+          {isFocused && query && (
+            <div className="aFI" style={{ position: 'absolute', top: '100%', right: 0, marginTop: 8, width: 360, background: N.bg, border: bd, borderRadius: 8, boxShadow: N.deep, zIndex: 100, maxHeight: 400, overflowY: 'auto' }}>
+              {searchResults.length > 0 ? (
+                <div style={{ padding: '8px 0' }}>
+                  <div style={{ padding: '0 16px', fontSize: 11, fontWeight: 600, color: N.inkMute, marginBottom: 4 }}>검색 결과 {searchResults.length}건</div>
+                  {searchResults.map(p => (
+                    <div key={p.id} onClick={() => { openPage(p.id); setQuery(''); setIsFocused(false); }} style={{ padding: '8px 16px', cursor: 'pointer', borderBottom: \`1px solid \${N.bgWarm}\` }} onMouseEnter={e => e.currentTarget.style.background = N.bgWarm} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: N.ink, marginBottom: 2 }}>{p.title}</div>
+                      {p.content && (
+                        <div style={{ fontSize: 11.5, color: N.inkSub, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', lineHeight: 1.5 }}>
+                          {p.content.replace(/#/g, '').substring(0, 100)}...
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ padding: '24px', textAlign: 'center', fontSize: 13, color: N.inkSub }}>결과가 없습니다.</div>
+              )}
+            </div>
+          )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5, color: N.teal, fontWeight: 500 }}>
           <span className="aBL" style={{ width: 6, height: 6, borderRadius: '50%', background: N.teal, display: 'inline-block' }} />
@@ -647,7 +696,7 @@ function LearnView({ openPage }) {
   return (
     <div className="nf" style={{ flex: 1, display: 'flex', flexDirection: 'column', background: N.bg, overflow: 'hidden' }}>
       <div style={{ padding: '28px 36px 0', flexShrink: 0 }}>
-        <h1 style={{ fontSize: 30, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 5 }}>새로 배운 것</h1>
+        <h1 style={{ fontSize: 30, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 5 }}>신규 지식</h1>
         <p style={{ fontSize: 13.5, color: N.inkSub, marginBottom: 20 }}>챗봇이 새로 배울 내용이에요. AI가 자동 처리한 것도 언제든 되돌릴 수 있어요.</p>
         <div style={{ display: 'flex', gap: 2, borderBottom: bd }}>
           {[['전체', LEARNINGS.length], ['확인 필요', 1], ['처리 실패', 0]].map(([l, c]) => (
@@ -759,7 +808,7 @@ function WikiView({ openPage, openNewPage }) {
     <div className="nf sy" style={{ flex: 1, background: N.bg, padding: '40px 48px 64px', overflowY: 'auto' }}>
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 32 }}>
         <div>
-          <h1 style={{ fontSize: 30, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 5 }}>위키</h1>
+          <h1 style={{ fontSize: 30, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 5 }}>전사 위키</h1>
           <p style={{ fontSize: 13.5, color: N.inkSub }}>챗봇이 답변에 활용하는 모든 문서예요.</p>
         </div>
         <NBtn variant="primary" onClick={openNewPage}><Plus size={14} />새 문서 만들기</NBtn>
@@ -839,50 +888,33 @@ function PageEditorView({ page, panel, setPanel }) {
 }
 
 function BlockContent({ page }) {
-  const isLeave = page.id === 'p-leave';
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 52px 80px' }}>
       <h1 style={{ fontSize: 40, fontWeight: 700, color: N.ink, letterSpacing: '-1px', marginBottom: 36, lineHeight: 1.15 }}>{page.title}</h1>
-      {isLeave ? <>
+      {page.isNew && page.source === 'ai' && (
         <div style={{ borderRadius: 6, padding: '16px 18px', background: N.tealBg, border: `1px solid ${N.teal}22`, marginBottom: 28 }}>
-          <div style={{ fontSize: 11.5, fontWeight: 600, color: N.teal, marginBottom: 10, display: 'flex', alignItems: 'center', gap: 5 }}>
+          <div style={{ fontSize: 11.5, fontWeight: 600, color: N.teal, display: 'flex', alignItems: 'center', gap: 5 }}>
             <Bot size={12} /> AI가 Slack에서 자동으로 학습했어요 · 방금 전
           </div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, color: N.ink, letterSpacing: '-.3px', marginBottom: 10 }}>신규 입사자 연차</h2>
-          <p style={{ fontSize: 15, color: N.ink, lineHeight: 1.75 }}>입사 1년 미만 직원은 <strong>매월 1일씩</strong> 연차가 발생하며, <em>발생 즉시 사용</em>할 수 있어요.</p>
-          <p style={{ fontSize: 15, color: N.ink, lineHeight: 1.75, marginTop: 8 }}>1년 이상 근속 시 연 15일이 일괄 부여돼요.</p>
         </div>
-        <div style={{ marginBottom: 28 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, color: N.ink, letterSpacing: '-.3px', marginBottom: 12 }}>연차 신청 방법</h2>
-          <ol style={{ paddingLeft: 24, lineHeight: 2.1, fontSize: 15, color: N.ink }}>
-            <li>Workflow 시스템에 접속해요.</li>
-            <li>"휴가 신청" 메뉴에서 날짜를 선택해요.</li>
-            <li>팀장 승인 후 자동으로 일정에 반영돼요.</li>
-          </ol>
-        </div>
-        <div style={{ marginBottom: 28 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, color: N.ink, letterSpacing: '-.3px', marginBottom: 12 }}>자주 묻는 질문</h2>
-          <ul style={{ paddingLeft: 24, lineHeight: 2.1, fontSize: 15, color: N.ink }}>
-            <li>반차도 신청 가능해요 (오전·오후 각 4시간).</li>
-            <li>신청 취소는 사용 1일 전까지 가능해요.</li>
-          </ul>
-        </div>
-      </> : (
-        <p style={{ fontSize: 15, color: N.inkSub, lineHeight: 1.75 }}>이 문서의 내용을 작성해주세요.</p>
       )}
+      <div className="md-content" style={{ fontSize: 15, color: N.ink, lineHeight: 1.75 }}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {page.content || '이 문서의 내용을 작성해주세요.'}
+        </ReactMarkdown>
+      </div>
       <div style={{ marginTop: 48, paddingTop: 20, borderTop: bd, display: 'flex', alignItems: 'center', gap: 7, fontSize: 12.5, color: N.inkMute }}>
-        <Bot size={13} color={N.blue} />
-        <span>Slack에서 자동 등록됨 · 잘못된 내용이 있으면 직접 수정하거나 되돌릴 수 있어요.</span>
+        {page.source === 'ai' ? <Bot size={13} color={N.blue} /> : <Users size={13} color={N.teal} />}
+        <span>{page.source === 'ai' ? 'Slack에서 자동 등록됨 · 잘못된 내용이 있으면 직접 수정하거나 되돌릴 수 있어요.' : '사용자가 직접 작성함'}</span>
       </div>
     </div>
   );
 }
 
 function SourceContent({ page }) {
-  const md = `# ${page.title}\n\n## 신규 입사자 연차\n입사 1년 미만 직원은 **매월 1일씩** 연차가 발생하며, 발생 즉시 사용할 수 있어요.\n\n1년 이상 근속 시 연 15일이 일괄 부여돼요.\n\n## 연차 신청 방법\n1. Workflow 시스템에 접속해요.\n2. "휴가 신청" 메뉴에서 날짜를 선택해요.\n3. 팀장 승인 후 자동으로 일정에 반영돼요.`;
   return (
     <div style={{ maxWidth: 820, margin: '0 auto', padding: '32px 52px' }}>
-      <pre className="nm" style={{ fontSize: 13, lineHeight: 1.85, color: N.ink, whiteSpace: 'pre-wrap' }}>{md}</pre>
+      <pre className="nm" style={{ fontSize: 13, lineHeight: 1.85, color: N.ink, whiteSpace: 'pre-wrap' }}>{page.content || '이 문서의 내용을 작성해주세요.'}</pre>
     </div>
   );
 }
@@ -1228,7 +1260,7 @@ function TeachView() {
   const tabs = [{ k: 'file', l: '파일', I: FileUp }, { k: 'url', l: '웹 페이지', I: Globe }, { k: 'paste', l: '직접 입력', I: Type }, { k: 'ext', l: '외부 연동', I: Zap }];
   return (
     <div className="nf sy" style={{ flex: 1, background: N.bg, padding: '40px 48px 64px', overflowY: 'auto' }}>
-      <h1 style={{ fontSize: 30, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 6 }}>직접 알려주기</h1>
+      <h1 style={{ fontSize: 30, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 6 }}>지식 등록하기</h1>
       <p style={{ fontSize: 13.5, color: N.inkSub, marginBottom: 28, lineHeight: 1.6 }}>파일, 웹 페이지, 텍스트 — 어디서든 챗봇에게 가르칠 내용을 보내주세요.</p>
       <div style={{ borderRadius: 8, padding: '16px 18px', background: N.bgWarm, border: bd, marginBottom: 28, maxWidth: 700 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: N.ink, marginBottom: 4 }}>저장 위치</div>
@@ -1348,6 +1380,40 @@ function SystemView() {
 }
 
 /* =========================================================================
+   FOLDER VIEW
+   ========================================================================= */
+function FolderView({ folder, openPage }) {
+  return (
+    <div className="nf sy" style={{ flex: 1, background: N.bg, padding: '40px 48px 64px', overflowY: 'auto' }}>
+      <div style={{ marginBottom: 36 }}>
+        <h1 style={{ fontSize: 32, fontWeight: 700, color: N.ink, letterSpacing: '-.6px', marginBottom: 8 }}>{folder.label}</h1>
+        <p style={{ fontSize: 14, color: N.inkSub }}>이 폴더에 포함된 모든 하위 문서들을 한눈에 볼 수 있어요.</p>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {folder.pages.map(p => (
+          <div key={p.id} style={{ border: bd, borderRadius: 8, background: N.bgWarm, overflow: 'hidden' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 20px', background: N.bg, borderBottom: bd }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <FileText size={15} color={N.inkSub} />
+                <h2 style={{ fontSize: 16, fontWeight: 700, color: N.ink }}>{p.title}</h2>
+              </div>
+              <NBtn variant="ghost" size="sm" onClick={() => openPage(p.id)}>
+                상세 보기 <ChevronRight size={12} />
+              </NBtn>
+            </div>
+            <div className="md-content" style={{ padding: '20px 24px', fontSize: 14, color: N.ink, lineHeight: 1.7, background: N.bgWarm }}>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {p.content || '이 문서의 내용을 작성해주세요.'}
+              </ReactMarkdown>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================================
    NEW PAGE MODAL
    ========================================================================= */
 function NewPageModal({ open, onClose }) {
@@ -1382,6 +1448,7 @@ function NewPageModal({ open, onClose }) {
 export default function Wekiflow() {
   const [view, setView] = useState('home');
   const [currentPage, setCurrentPage] = useState(null);
+  const [currentFolder, setCurrentFolder] = useState(null);
   const [panel, setPanel] = useState(null);
   const [newPageOpen, setNewPageOpen] = useState(false);
 
@@ -1392,22 +1459,30 @@ export default function Wekiflow() {
     setPanel(null);
   };
 
+  const openFolder = (id) => {
+    const f = HR_TREE.folders.find(fd => fd.id === id);
+    setCurrentFolder(f || null);
+    setView('folder');
+    setPanel(null);
+  };
+
   const crumbs = {
-    home:   ['벨루가 HR Wiki', '홈'],
-    learn:  ['벨루가 HR Wiki', '새로 배운 것'],
-    wiki:   ['벨루가 HR Wiki', '위키'],
-    teach:  ['벨루가 HR Wiki', '직접 알려주기'],
-    log:    ['벨루가 HR Wiki', '학습 기록'],
-    system: ['벨루가 HR Wiki', '시스템 상태'],
-    page:   ['벨루가 HR Wiki', '위키', currentPage?.title || ''],
+    home:   ['글로벌벨루가 HR Wiki', '대시보드'],
+    learn:  ['글로벌벨루가 HR Wiki', '신규 지식'],
+    wiki:   ['글로벌벨루가 HR Wiki', '전사 위키'],
+    teach:  ['글로벌벨루가 HR Wiki', '지식 등록하기'],
+    log:    ['글로벌벨루가 HR Wiki', '학습 기록'],
+    system: ['글로벌벨루가 HR Wiki', '시스템 상태'],
+    page:   ['글로벌벨루가 HR Wiki', '전사 위키', currentPage?.title || ''],
+    folder: ['글로벌벨루가 HR Wiki', '전사 위키', currentFolder?.label || '폴더'],
   };
 
   return (
     <div className="nf" style={{ display: 'flex', height: '100vh', width: '100%', background: N.bg, color: N.ink }}>
       <style>{FONTS}</style>
-      <Sidebar view={view} setView={(v) => { setView(v); setPanel(null); }} openPage={openPage} currentPageId={currentPage?.id} />
+      <Sidebar view={view} setView={(v) => { setView(v); setPanel(null); }} openPage={openPage} currentPageId={currentPage?.id} openFolder={openFolder} currentFolderId={currentFolder?.id} />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        <TopBar crumbs={crumbs[view] || ['벨루가']} />
+        <TopBar crumbs={crumbs[view] || ['글로벌벨루가 HR Wiki']} openPage={openPage} />
         {view === 'home'   && <HomeView gotoLearn={() => setView('learn')} openPage={openPage} />}
         {view === 'learn'  && <LearnView openPage={openPage} />}
         {view === 'wiki'   && <WikiView openPage={openPage} openNewPage={() => setNewPageOpen(true)} />}
@@ -1415,6 +1490,7 @@ export default function Wekiflow() {
         {view === 'log'    && <LogView />}
         {view === 'system' && <SystemView />}
         {view === 'page' && currentPage && <PageEditorView page={currentPage} panel={panel} setPanel={setPanel} />}
+        {view === 'folder' && currentFolder && <FolderView folder={currentFolder} openPage={openPage} />}
       </div>
       <NewPageModal open={newPageOpen} onClose={() => setNewPageOpen(false)} />
     </div>
