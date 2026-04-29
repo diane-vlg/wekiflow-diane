@@ -116,7 +116,9 @@ const HR_TREE = {
       ],
     },
   ],
-};\n\nconst ALL_PAGES = HR_TREE.folders.flatMap(f => f.pages);
+};
+
+const ALL_PAGES = HR_TREE.folders.flatMap(f => f.pages);
 
 /* ── Triple graph data ─────────────────────────────────────────────────── */
 // Nodes: id, label, type (doc|concept|policy|system|person), x, y
