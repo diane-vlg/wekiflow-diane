@@ -568,7 +568,7 @@ function TopBar({ crumbs, openPage }) {
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
         <div style={{ position: 'relative' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 4, border: isFocused ? \`1px solid \${N.blue}\` : bd, background: N.bg, transition: 'border 0.2s' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', borderRadius: 4, border: isFocused ? `1px solid ${N.blue}` : bd, background: N.bg, transition: 'border 0.2s' }}>
             <Search size={12} color={isFocused ? N.blue : N.inkMute} />
             <input 
               value={query} 
@@ -586,7 +586,7 @@ function TopBar({ crumbs, openPage }) {
                 <div style={{ padding: '8px 0' }}>
                   <div style={{ padding: '0 16px', fontSize: 11, fontWeight: 600, color: N.inkMute, marginBottom: 4 }}>검색 결과 {searchResults.length}건</div>
                   {searchResults.map(p => (
-                    <div key={p.id} onClick={() => { openPage(p.id); setQuery(''); setIsFocused(false); }} style={{ padding: '8px 16px', cursor: 'pointer', borderBottom: \`1px solid \${N.bgWarm}\` }} onMouseEnter={e => e.currentTarget.style.background = N.bgWarm} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                    <div key={p.id} onClick={() => { openPage(p.id); setQuery(''); setIsFocused(false); }} style={{ padding: '8px 16px', cursor: 'pointer', borderBottom: `1px solid ${N.bgWarm}` }} onMouseEnter={e => e.currentTarget.style.background = N.bgWarm} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
                       <div style={{ fontSize: 13, fontWeight: 600, color: N.ink, marginBottom: 2 }}>{p.title}</div>
                       {p.content && (
                         <div style={{ fontSize: 11.5, color: N.inkSub, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', lineHeight: 1.5 }}>
